@@ -1,4 +1,4 @@
-# Skillit: Your Personal AI Career Co-pilot
+*# Skillit: Your Personal AI Career Co-pilot
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Status](https://img.shields.io/badge/status-in%20development-blue)]()
