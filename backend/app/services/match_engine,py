@@ -1,0 +1,32 @@
+from sentence_transformers import SentenceTransformer, util
+
+model = SentenceTransformer("all-MiniLM-L6-v2")
+
+def calculate_skill_match(resume_skills, jd_skills):
+    resume_set = set(resume_skills)
+    jd_set = set(jd_skills)
+
+    overlap = list(resume_set.intersection(jd_set))
+    missing = list(jd_set - resume_set)
+
+    skill_match_percent = round((len(overlap) / len(jd_set)) * 100, 2) if jd_set else 0
+
+    return {
+        "overlap_skills": overlap,
+        "missing_skills": missing,
+        "skill_match_percent": skill_match_percent
+    }
+
+def calculate_text_similarity(resume_text, jd_text):
+    emb1 = model.encode(resume_text, convert_to_tensor=True)
+    emb2 = model.encode(jd_text, convert_to_tensor=True)
+
+    sim = util.cos_sim(emb1, emb2).item()
+    sim = round(sim * 100, 2)
+    return sim
+
+
+def generate_final_score(skill_score, text_score):
+    # Weighted score
+    final = (skill_score * 0.6) + (text_score * 0.4)
+    return round(final, 2)
