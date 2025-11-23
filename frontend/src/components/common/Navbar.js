@@ -21,12 +21,13 @@ const Navbar = () => {
       
       <div className="navbar-links">
         {/* We will add more links like "About" or "Features" later */}
-        <Link to="/login" className="nav-button login-button">
-          Log In
-        </Link>
-        <Link to="/signup" className="nav-button signup-button">
-          Sign Up
-        </Link>
+        <Link to="/login" className="nav-button login-button">Log In</Link>
+        <Link to="/signup" className="nav-button signup-button">Sign Up</Link>
+        <Link to="/resume" className="nav-button">Resume Analyzer</Link>
+        <Link to="/jd" className="nav-button">JD Analyzer</Link>
+        <Link to="/match" className="nav-button">Matcher</Link>
+        <Link to="/dashboard" className="nav-button">Dashboard</Link>
+
       </div>
     </nav>
   );

@@ -6,10 +6,24 @@ const SignupPage = () => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    alert(`Signing up with\nUsername: ${username}\nEmail: ${email}\nPassword: ${password}`);
-  };
+  
+    const res = await fetch("http://localhost:5001/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+  
+    const data = await res.json();
+  
+    if (res.ok) {
+      alert("Signup successful");
+      window.location.href = "/login";
+    } else {
+      alert(data.error);
+    }
+  };  
 
   return (
     <div className="auth-container">

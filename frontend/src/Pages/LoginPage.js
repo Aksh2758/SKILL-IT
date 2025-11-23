@@ -5,9 +5,24 @@ const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
   
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
       e.preventDefault();
-      alert(`Logging in with\nEmail: ${email}\nPassword: ${password}`);
+    
+      const res = await fetch("http://localhost:5001/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      });
+    
+      const data = await res.json();
+    
+      if (res.ok) {
+        localStorage.setItem("token", data.token);
+        alert("Login successful");
+        window.location.href = "/";
+      } else {
+        alert(data.error);
+      }
     };
   
     return (
