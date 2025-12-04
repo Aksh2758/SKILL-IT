@@ -29,7 +29,7 @@ const ResumeBuilderPage = () => {
             ]
         };
 
-        const res = await axios.post("http://localhost:5000/resume-builder/generate", payload);
+        const res = await axios.post("http://localhost:5001/resume-builder/generate", payload);
         setPdfPath(res.data.pdf_path);
     };
 
