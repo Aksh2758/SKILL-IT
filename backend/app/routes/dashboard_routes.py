@@ -6,8 +6,8 @@ dashboard_bp = Blueprint("dashboard", __name__)
 
 @dashboard_bp.route("/my-history", methods=["GET"])
 @token_required
-def history(current_user):
-    user_id = str(current_user["_id"])
+def history(user):
+    user_id = str(user["_id"])
     data = get_user_history(user_id)
 
     for d in data:
