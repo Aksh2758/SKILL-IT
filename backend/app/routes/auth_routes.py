@@ -1,10 +1,10 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, current_app
 from .. import mongo 
 import bcrypt
 import jwt 
 from datetime import datetime, timedelta, timezone
 
-# "Blueprint for authentication routes
+# Blueprint for authentication routes
 auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/register', methods=['POST'])
