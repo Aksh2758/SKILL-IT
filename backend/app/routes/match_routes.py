@@ -12,7 +12,7 @@ match_bp = Blueprint("match", __name__)
 
 @match_bp.route("/calculate", methods=["POST"])
 @token_required
-def calculate_match():
+def calculate_match(user):
     data = request.get_json()
 
     resume_text = data.get("resume_text", "")
@@ -36,7 +36,7 @@ def calculate_match():
     )
 
     save_match_history(
-        user_id=str(current_user["_id"]),
+        user_id=str(user["_id"]),
         final_score=final_score,
         overlap=skill_data["overlap_skills"],
         missing=skill_data["missing_skills"],
