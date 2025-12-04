@@ -6,7 +6,7 @@ const PortfolioPage = () => {
     const [portfolio, setPortfolio] = useState(null);
 
     const generate = async () => {
-        const res = await axios.post("http://localhost:5000/portfolio/generate", {
+        const res = await axios.post("http://localhost:5001/portfolio/generate", {
             skills: skills.split(",").map(s => s.trim())
         });
 
