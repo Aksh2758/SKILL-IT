@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_pymongo import PyMongo
 from .routes.auth_routes import auth_bp
@@ -12,6 +12,7 @@ from .routes.career_routes import career_bp
 from .routes.dashboard_routes import dashboard_bp
 from .routes.report_routes import report_bp
 from .routes.resume_builder_routes import resume_builder_bp
+from datetime import datetime
 
 mongo = PyMongo()
 
@@ -24,8 +25,15 @@ def create_app():
     # Initialize DB
     mongo.init_app(app)
 
-    # Enable CORS
-    CORS(app)
+    # Enable CORS with specific configuration
+    # TODO: In production, replace '*' with specific frontend URL
+    CORS(app, resources={
+        r"/*": {
+            "origins": ["http://localhost:3000", "http://localhost:3001"],
+            "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+            "allow_headers": ["Content-Type", "Authorization"]
+        }
+    })
 
     # Register Routes
     app.register_blueprint(auth_bp, url_prefix="/auth")
@@ -39,8 +47,68 @@ def create_app():
     app.register_blueprint(report_bp, url_prefix="/report")
     app.register_blueprint(resume_builder_bp, url_prefix="/resume-builder")
 
+    # Root endpoint
     @app.get("/")
     def index():
-        return {"message": "Skill-It Backend Running 😎"}
+        return {
+            "message": "SKILL-IT Backend API",
+            "status": "running",
+            "version": "1.1.0",
+            "endpoints": {
+                "auth": "/auth",
+                "resume": "/resume",
+                "jobs": "/jobs",
+                "portfolio": "/portfolio",
+                "jd": "/jd",
+                "match": "/match",
+                "career": "/career",
+                "dashboard": "/dashboard",
+                "report": "/report",
+                "resume_builder": "/resume-builder",
+                "health": "/health"
+            }
+        }
+
+    # Health check endpoint
+    @app.get("/health")
+    def health():
+        try:
+            # Check database connection
+            mongo.db.command('ping')
+            db_status = "healthy"
+        except Exception as e:
+            db_status = "unhealthy"
+        
+        return jsonify({
+            "status": "healthy" if db_status == "healthy" else "degraded",
+            "service": "SKILL-IT Backend",
+            "timestamp": datetime.utcnow().isoformat(),
+            "components": {
+                "api": "healthy",
+                "database": db_status
+            }
+        }), 200 if db_status == "healthy" else 503
+
+    # Error handlers
+    @app.errorhandler(404)
+    def not_found(error):
+        return jsonify({
+            "error": "Endpoint not found",
+            "message": "The requested URL was not found on the server."
+        }), 404
+
+    @app.errorhandler(500)
+    def internal_error(error):
+        return jsonify({
+            "error": "Internal server error",
+            "message": "An unexpected error occurred. Please try again later."
+        }), 500
+
+    @app.errorhandler(405)
+    def method_not_allowed(error):
+        return jsonify({
+            "error": "Method not allowed",
+            "message": "The method is not allowed for the requested URL."
+        }), 405
 
     return app
