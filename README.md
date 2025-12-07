@@ -1,4 +1,4 @@
-*# Skillit: Your Personal AI Career Co-pilot
+# **Skillit: Your Personal AI Career Co-pilot**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Status](https://img.shields.io/badge/status-in%20development-blue)]()
@@ -140,5 +140,6 @@ Distributed under the MIT License. See `LICENSE` file for more information.
 
 *   **Akshatha K S** - *The API & Logic Builder* - [GitHub Profile Link](https://github.com/Aksh2758)
 *   **Keerthi V** - *The Visual Architect* - [GitHub Profile Link](https://github.com/Keerthi)
-*   **Suhana** - *The AI Specialist* - [GitHub Profile Link](https://github.com/Suhana745)
+*   **Suhana and Pavitra** - *The AI Specialist* - [GitHub Profile Link Suhana](https://github.com/Suhana745)    [GitHub Profile Link Pavitra](https://github.com/pavi0201)
 *   **Shilpa Jayanth Naik** - *The Infrastructure Glue* - [GitHub Profile Link](https://github.com/Shilpa)
+*   **Keerthana K R** - *The Tester* - [GitHub Profile Link](https://github.com/keerthanakr4750-coder)
