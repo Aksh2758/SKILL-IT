@@ -2,11 +2,7 @@ import jwt
 from functools import wraps
 from flask import request, jsonify, current_app
 from bson import ObjectId
-
-def get_mongo():
-    """Helper function to get mongo instance from current_app"""
-    from flask_pymongo import PyMongo
-    return current_app.extensions['pymongo']['MONGO'][0]
+from .db_helper import get_mongo
 
 def token_required(f):
     @wraps(f)
