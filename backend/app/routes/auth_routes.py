@@ -2,14 +2,10 @@ from flask import Blueprint, request, jsonify, current_app
 import bcrypt
 import jwt 
 from datetime import datetime, timedelta, timezone
+from ..utils.db_helper import get_mongo
 
 # Blueprint for authentication routes
 auth_bp = Blueprint('auth', __name__)
-
-def get_mongo():
-    """Helper function to get mongo instance from current_app"""
-    from flask_pymongo import PyMongo
-    return current_app.extensions['pymongo']['MONGO'][0]
 
 @auth_bp.route('/register', methods=['POST'])
 def register():
