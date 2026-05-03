@@ -2,7 +2,7 @@ import jwt
 from functools import wraps
 from flask import request, jsonify, current_app
 from bson import ObjectId
-from .. import mongo
+from .db_helper import get_mongo
 
 def token_required(f):
     @wraps(f)
@@ -13,6 +13,7 @@ def token_required(f):
             return jsonify({"error": "Token missing"}), 401
 
         try:
+            mongo = get_mongo()
             token = token.replace("Bearer ", "")
             data = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=["HS256"])
             user = mongo.db.users.find_one({"_id": ObjectId(data['user_id'])})
